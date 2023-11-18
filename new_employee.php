@@ -1,4 +1,5 @@
 <?php
+include 'header.php' 
 ?>
 <div class="col-lg-12">
 	<div class="card">
@@ -9,18 +10,18 @@
 					<div class="col-md-6 border-right">
 						<div class="form-group">
 							<label for="" class="control-label">Nombre</label>
-							<input type="text" name="firstname" class="form-control form-control-sm" required value="<?php echo isset($firstname) ? $firstname : '' ?>">
+							<input type="text" name="firstname" id="nombre" class="form-control form-control-sm" required value="<?php echo isset($firstname) ? $firstname : '' ?>">
 						</div>
 						<div class="form-group">
 							<label for="" class="control-label">Segundo Nombre (opcional)</label>
-							<input type="text" name="middlename" class="form-control form-control-sm" value="<?php echo isset($middlename) ? $middlename : '' ?>">
+							<input type="text" id="middlename" name="middlename" class="form-control form-control-sm" value="<?php echo isset($middlename) ? $middlename : '' ?>">
 						</div>
 						<div class="form-group">
 							<label for="" class="control-label">Apellido</label>
 							<input type="text" name="lastname" class="form-control form-control-sm" required value="<?php echo isset($lastname) ? $lastname : '' ?>">
 						</div>
 						<div class="form-group">
-							<label for="" class="control-label">Departmento</label>
+							<label for="" class="control-label">Departamento</label>
 							<select name="department_id" id="department_id" class="form-control form-control-sm select2">
 								<option value=""></option>
 								<?php 
@@ -69,7 +70,7 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">Correo Electrónico</label>
-							<input type="email" class="form-control form-control-sm" name="email" required value="<?php echo isset($email) ? $email : '' ?>">
+							<input type="email" id="email" class="form-control form-control-sm" name="email" required value="<?php echo isset($email) ? $email : '' ?>">
 							<small id="#msg"></small>
 						</div>
 						<div class="form-group">
