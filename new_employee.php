@@ -12,7 +12,7 @@
 							<input type="text" name="firstname" class="form-control form-control-sm" required value="<?php echo isset($firstname) ? $firstname : '' ?>">
 						</div>
 						<div class="form-group">
-							<label for="" class="control-label">Segunto Nombre (opcional)</label>
+							<label for="" class="control-label">Segundo Nombre (opcional)</label>
 							<input type="text" name="middlename" class="form-control form-control-sm" value="<?php echo isset($middlename) ? $middlename : '' ?>">
 						</div>
 						<div class="form-group">
