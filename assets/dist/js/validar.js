@@ -3,20 +3,22 @@ $(document).ready(function () {
     $('#manage_employee').submit(function (e) {
         e.preventDefault();
 
-        var nombre = $('#nombre').val();
-        var middlename = $('#middlename').val();
+        var firstname = $('#firstname').val();
+        var lastname = $('#lastname').val();
+        var department_id = $('#department_id').val();
+        
         var email = $('#email').val();
         
 
         // Función de validación
-        if (!validarCampos(nombre, middlename,email)) {
+        if (!validarCampos(firstname, lastname,department_id,email)) {
             return;
         }
 
         // Función de validación para los campos del formulario
-        function validarCampos(nombre, middlename, email) {
+        function validarCampos(firstname, lastname,department_id,email) {
             // Validar campos vacíos
-            if (nombre === '' || middlename === '' || email === '') {
+            if (firstname === '' || lastname === '' || department_id === '' || email === '') {
                 alert('Por favor, completa todos los campos');
                 return false;
             }
@@ -27,7 +29,7 @@ $(document).ready(function () {
                 return false;
             }
             // Validar nombre y mensaje (permitir solo espacios cuando se ingrese texto)
-            if (nombre.trim() === '' || middlename.trim() === '') {
+            if (nombre.trim() === '' || lastname.trim() === '') {
                 alert('Los campos no pueden tener espacios antes de ingresar el texto');
                 return false;
             }
@@ -49,19 +51,21 @@ $(document).ready(function () {
 
         // Datos del formulario
         var datos = {
-            nombre: nombre,
-            correo: correo,
-            mensaje: mensaje
+            nombre: firstname,
+            apellido: lastname,
+            departamento: department_id,
+            correo: mail
+            
         };
 
         // Enviar datos a través de AJAX
         $.ajax({
             type: 'POST',
-            url: 'enviar_correo.php',
+            url: '../../enviar_correo.php',
             data: datos,
             success: function (response) {
                 alert(response);
-                $('#contactoForm')[0].reset();
+                $('#manage_employee')[0].reset();
             },
             error: function () {
                 alert('Hubo un error al enviar el correo');

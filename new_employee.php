@@ -10,7 +10,7 @@ include 'header.php'
 					<div class="col-md-6 border-right">
 						<div class="form-group">
 							<label for="" class="control-label">Nombre</label>
-							<input type="text" name="firstname" id="nombre" class="form-control form-control-sm" required value="<?php echo isset($firstname) ? $firstname : '' ?>">
+							<input type="text" name="firstname" id="firstname" class="form-control form-control-sm" required value="<?php echo isset($firstname) ? $firstname : '' ?>">
 						</div>
 						<div class="form-group">
 							<label for="" class="control-label">Segundo Nombre (opcional)</label>

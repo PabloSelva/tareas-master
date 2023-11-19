@@ -10,21 +10,21 @@ require 'PHPMailer/SMTP.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Verificar campos requeridos
-  if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['mensaje'])) {
-    echo "Por favor, completa todos los campos";
-    return false;
-  }
+  //if (empty($_POST['name']) || empty($_POST['lastname']) || empty($_POST['mail'])) {
+    //echo "Por favor, completa todos los campos";
+    //return false;
+  //}
 
   // Datos del formulario
-  $nombre = $_POST['nombre'];
-  $correo = $_POST['correo'];
-  $mensaje = $_POST['mensaje'];
+  $name = $_POST['name'];
+  $lastname = $_POST['lastname'];
+  $mail2 = $_POST['mail'];
 
   // Configuración del servidor SMTP
-  $smtpHost = ''; // Dirección del servidor SMTP
-  $smtpPort = 587; // Puerto del servidor SMTP
-  $smtpUsername = ''; // Tu dirección de correo electrónico
-  $smtpPassword = ''; // Tu contraseña de correo electrónico
+  $smtpHost = 'smtp.gmail.com'; // Dirección del servidor SMTP
+  $smtpPort = 465; // Puerto del servidor SMTP
+  $smtpUsername = 'rayito.cm3@gmail.com'; // Tu dirección de correo electrónico
+  $smtpPassword = 'eivesqfdiuzlhrad'; // Tu contraseña de correo electrónico
 
   // Configurar el envío de correo
   $mail = new PHPMailer();
@@ -37,14 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $mail->SMTPSecure = 'tls';
 
   // Información del correo
-  $mail->setFrom($correo, $nombre);
+  $mail->setFrom($mail2, $name,$lastname);
   $mail->addAddress(''); // Dirección de correo del destinatario
   $mail->Subject = 'Contacto desde formulario';
 
   // Cuerpo del mensaje
-  $mail->Body = "Nombre: $nombre\n";
-  $mail->Body .= "Correo electronico: $correo\n";
-  $mail->Body .= "Mensaje: $mensaje\n";
+  $mail->Body = "Estimado : $name ,$lastname, su cuenta ha sido creada con exito\n";
+  $mail->Body .= "Ha sido asigando al : $departament_id\n";
+  $mail->Body .= "Mensaje:\n";
 
   // Enviar correo
   if ($mail->send()) {
