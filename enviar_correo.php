@@ -13,6 +13,7 @@ require 'phpmailer/src/SMTP.php';
 //Create an instance; passing `true` enables exceptions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
+  $nombre = $_POST['firstname'];
   $mail = new PHPMailer(true);
  
     //Server settings
@@ -20,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->isSMTP();                              //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';       //Set the SMTP server to send through
     $mail->SMTPAuth   = true;             //Enable SMTP authentication
-    $mail->Username   = 'rayito.cm3@gmail.com';   //SMTP write your email
-    $mail->Password   = 'ndmbjnhkszctpwht';      //SMTP password
+    $mail->Username   = 'intellysys.encode@gmail.com';   //SMTP write your email
+    $mail->Password   = 'jnjvwjtegtadifmk';      //SMTP password
     $mail->SMTPSecure = 'ssl';            //Enable implicit SSL encryption
     $mail->Port       = 465;                                    
     $mail->SMTPOptions= array(
@@ -32,15 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       )
       );
     //Recipients
-    $mail->setFrom('rayito.cm3@gmail.com'); // Sender Email and name
+    $mail->setFrom('intellysys.encode@gmail.com'); // Sender Email and name
     $mail->addAddress($_POST["email"]);     //Add a recipient email
     //$mail->Subject = 'Contacto desde formulario';  
     //$mail->addReplyTo($_POST["email"], $_POST["name"]); // reply to sender email
  
     //Content
     $mail->isHTML(true);               //Set email format to HTML
-    
-    $mail->Body = "Nombre: finaaaaal chido ";
+    $mail->Subject = 'Registro Intellysys';  
+    $mail->Body = "¡Hola! $nombre\n";
+    $mail->Body = "Bienvenido a nuestro servicio Intellysys Encode .\n
+     Has sido registrado exitosamente .";
+
     //$mail->Body .= "Correo electrónico: \n";
     //$mail->Body .= "Mensaje: ";
     // Success sent message alert

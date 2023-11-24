@@ -165,6 +165,7 @@ include 'header.php'
                 // Llamada AJAX para enviar correo después del éxito de la primera llamada
                 var datos = {
                     email: $('[name="email"]').val(),
+					
                 };
 
                 $.ajax({
