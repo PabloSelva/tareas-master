@@ -1,10 +1,13 @@
 <?php
 include 'header.php' 
+
+
 ?>
+
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
-			<form action="enviar_correo.php" id="manage_employee">
+			<form action="enviar_correo.php" id="manage_employee" method="post">
 				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 				<div class="row">
 					<div class="col-md-6 border-right">
@@ -87,7 +90,7 @@ include 'header.php'
 				</div>
 				<hr>
 				<div class="col-lg-12 text-right justify-content-center d-flex">
-					<button class="btn btn-primary mr-2">Guardar</button>
+					<button class="btn btn-primary mr-2" name="send">Guardar</button>
 					<button class="btn btn-secondary" type="button" onclick="location.href = 'index.php?page=employee_list'">Cancelar</button>
 				</div>
 			</form>
@@ -126,40 +129,72 @@ include 'header.php'
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage_employee').submit(function(e){
-		e.preventDefault()
-		$('input').removeClass("border-danger")
-		start_load()
-		$('#msg').html('')
-		if($('[name="password"]').val() != '' && $('[name="cpass"]').val() != ''){
-			if($('#pass_match').attr('data-status') != 1){
-				if($("[name='password']").val() !=''){
-					$('[name="password"],[name="cpass"]').addClass("border-danger")
-					end_load()
-					return false;
-				}
-			}
-		}
-		$.ajax({
-			url:'ajax.php?action=save_employee',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Datos guardados.',"proceso exitoso");
-					setTimeout(function(){
-						location.replace('index.php?page=employee_list')
-					},750)
-				}else if(resp == 2){
-					$('#msg').html("<div class='alert alert-danger'>Correo existe actualmente</div>");
-					$('[name="email"]').addClass("border-danger")
-					end_load()
-				}
-			}
-		})
-	})
+	$('#manage_employee').submit(function(e) {
+    e.preventDefault();
+    $('input').removeClass("border-danger");
+    start_load();
+    $('#msg').html('');
+
+    if ($('[name="password"]').val() != '' && $('[name="cpass"]').val() != '') {
+        if ($('#pass_match').attr('data-status') != 1) {
+            if ($("[name='password']").val() != '') {
+                $('[name="password"],[name="cpass"]').addClass("border-danger");
+                end_load();
+                return false;
+            }
+        }
+    }
+
+    // Datos para enviar al servidor
+    var formData = new FormData($(this)[0]);
+    formData.append('email', $('[name="email"]').val());
+
+    // Enviar datos a través de AJAX
+    $.ajax({
+        url: 'ajax.php?action=save_employee',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        type: 'POST',
+        success: function(resp) {
+            if (resp == 1) {
+                alert_toast('Datos guardados.', "proceso exitoso");
+
+                // Llamada AJAX para enviar correo después del éxito de la primera llamada
+                var datos = {
+                    email: $('[name="email"]').val(),
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'enviar_correo.php',
+                    data: datos,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor para el envío de correo
+                    },
+                    error: function() {
+                        alert('Hubo un error al enviar el correo');
+                    }
+                });
+
+                setTimeout(function() {
+                    location.replace('index.php?page=employee_list');
+                }, 750);
+            } else if (resp == 2) {
+                $('#msg').html("<div class='alert alert-danger'>Correo existe actualmente</div>");
+                $('[name="email"]').addClass("border-danger");
+                end_load();
+            }
+        },
+        error: function() {
+            alert('Hubo un error al guardar los datos');
+            end_load();
+        }
+    });
+});
+
+    
+	
 </script>
