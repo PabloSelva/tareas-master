@@ -31,7 +31,21 @@ if(isset($_GET['id'])){
 					</div>
 					<div class="form-group">
 						<label for="">Fecha de Vencimiento</label>
-						<input type="date" class="form-control form-control-sm" name="due_date" value="<?php echo isset($due_date) ? $due_date : date("Y-m-d") ?>" required>
+						<input type="date" class="form-control form-control-sm" name="due_date" id="due_date" value="<?php echo isset($due_date) ? $due_date : date("Y-m-d"); ?>" required>
+							<script>
+							// Obtiene el elemento del campo de fecha
+							var dueDateInput = document.getElementById('due_date');
+
+							// Obtiene la fecha actual en formato YYYY-MM-DD
+							var currentDate = new Date();
+
+							// Ajusta la fecha actual al formato YYYY-MM-DD
+							currentDate.setDate(currentDate.getDate() - 1);
+							var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+
+							// Establece la fecha mínima del campo de fecha al día actual
+							dueDateInput.min = formattedCurrentDate;
+							</script>
 					</div>
 				</div>
 				<div class="col-md-7">

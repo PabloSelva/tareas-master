@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Content
     $mail->isHTML(true);               //Set email format to HTML
     $mail->Subject = 'Registro Intellysys';  
-    $mail->Body = "¡Hola! $nombre\n";
+    $mail->Body = "¡Hola!, $nombre\n";
     $mail->Body = "Bienvenido a nuestro servicio Intellysys Encode .\n
      Has sido registrado exitosamente .";
 
