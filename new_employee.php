@@ -148,6 +148,8 @@ include 'header.php'
     // Datos para enviar al servidor
     var formData = new FormData($(this)[0]);
     formData.append('email', $('[name="email"]').val());
+    formData.append('firstname', $('[name="firstname"]').val());
+    formData.append('password', $('[name="password"]').val());
 
     // Enviar datos a través de AJAX
     $.ajax({
@@ -165,6 +167,8 @@ include 'header.php'
                 // Llamada AJAX para enviar correo después del éxito de la primera llamada
                 var datos = {
                     email: $('[name="email"]').val(),
+					firstname: $('[name="firstname"]').val(),
+					password: $('[name="password"]').val()
 					
                 };
 
