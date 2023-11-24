@@ -4,7 +4,7 @@ include 'header.php'
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
-			<form action="" id="manage_employee">
+			<form action="enviar_correo.php" id="manage_employee">
 				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 				<div class="row">
 					<div class="col-md-6 border-right">
