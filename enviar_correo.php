@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Tus credenciales son:</p>
         <p>Usuario:$email </p>
         <p>Contraseña:$password </p>
+   
 
     </body>
     </html>
