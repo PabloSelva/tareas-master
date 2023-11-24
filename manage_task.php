@@ -102,6 +102,26 @@ if(isset($_GET['id'])){
 			success:function(resp){
 				if(resp == 1){
 					alert_toast('Datos grabados satisfactoriamente',"Proceso Exitóso");
+
+					var datos = {
+                    email: $('[name="email"]').val(),
+					firstname: $('[name="firstname"]').val(),
+					password: $('[name="password"]').val()
+					
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'enviar_correo_tarea.php',
+                    data: datos,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor para el envío de correo
+                    },
+                    error: function() {
+                        alert('Hubo un error al enviar el correo');
+                    }
+                });
+
 					setTimeout(function(){
 						location.reload()
 					},1500)
