@@ -89,6 +89,12 @@ if(isset($_GET['id'])){
     $('#manage-task').submit(function(e){
     	e.preventDefault()
     	start_load()
+		 // Datos para enviar al servidor
+		 var formData = new FormData($(this)[0]);
+    	formData.append('task', $('[name="task"]').val());
+    	formData.append('description', $('[name="description"]').val());
+    	//formData.append('firstname', $('[name="firstname"]').val());
+    	//formData.append('password', $('[name="password"]').val());
     	$.ajax({
     		url:'ajax.php?action=save_task',
 			data: new FormData($(this)[0]),
@@ -102,9 +108,10 @@ if(isset($_GET['id'])){
 					alert_toast('Datos grabados satisfactoriamente',"Proceso Exitóso");
 
 					var datos = {
-                    email: $('[name="email"]').val(),
-					firstname: $('[name="firstname"]').val(),
-					password: $('[name="password"]').val()
+						task: $('[name="task"]').val(),
+						description: $('[name="description"]').val()
+					//firstname: $('[name="firstname"]').val(),
+					// password: $('[name="password"]').val()
 					
                 };
 

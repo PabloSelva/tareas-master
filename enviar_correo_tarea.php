@@ -12,9 +12,11 @@ require 'phpmailer/src/SMTP.php';
  
 //Create an instance; passing `true` enables exceptions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $email=$_POST["email"];
-  $firstname = $_POST['firstname'];
-  $password = $_POST['password'];
+  //$email=$_POST["email"];
+  //$firstname = $_POST['firstname'];
+  //$password = $_POST['password'];
+  $tarea = $_POST['task'];
+  $desc = $_POST['description'];
   $mail = new PHPMailer(true);
  
     //Server settings
@@ -35,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       );
     //Recipients
     $mail->setFrom('intellysys.encode@gmail.com'); // Sender Email and name
-    $mail->addAddress($_POST["email"]);     //Add a recipient email
+    //$mail->addAddress($_POST["email"]);     //Add a recipient email
+    $mail->addAddress('pablosc809@gmail.com');     //Add a recipient email
     //$mail->Subject = 'Contacto desde formulario';  
     //$mail->addReplyTo($_POST["email"], $_POST["name"]); // reply to sender email
  
@@ -51,13 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <title>Bienvenido a nuestro servicio</title>
     </head>
     <body>
-        <p>¡Hola $firstname!</p>
-        <p>Bienvenido a nuestro servicio. Apreciamos tu interés y esperamos que tengas una experiencia increíble con nosotros.</p>
-        <p>Gracias por unirte,</p>
+        <p>¡Hola !</p>
+        <p>Tienes una nueva asignación: $tarea</p>
+        <p>Descripción: $desc</p>
         <p>El equipo de Intellysys Encode.</p>
-        <p>Tus credenciales son:</p>
-        <p>Usuario:$email </p>
-        <p>Contraseña:$password </p>
+        
+       
 
     </body>
     </html>
