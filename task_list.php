@@ -98,6 +98,7 @@
 										<a class="dropdown-item delete_task" onClick="delete_task(<?php echo $row['id'] ?>)"
 											href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Eliminar</a>
 									<?php endif; ?>
+									<div class="dropdown-divider"></div>
 									<?php if ($_SESSION['login_type'] == 0): ?>
 										<?php if ($row['status'] != 2): ?>
 											<a class="dropdown-item new_progress" data-pid='<?php echo $row['pid'] ?>'
@@ -149,9 +150,9 @@
 		// $('.view_progress').click(function(){
 		// 	uni_modal("Progeso de: "+$(this).attr('data-task'),"view_progress.php?id="+$(this).attr('data-tid'),'mid-large')
 		// })
-		$('.delete_task').click(function () {
-			_conf("¿Estás seguro de eliminar esta tarea?", "delete_task", [$(this).attr('data-id')]);
-		})
+		// $('.delete_task').click(function () {
+		// 	_conf("¿Estás seguro de eliminar esta tarea?", "delete_task", [$(this).attr('data-id')]);
+		// })
 	})
 	function delete_task($id) {
 		start_load()
@@ -161,7 +162,7 @@
 			data: { id: $id },
 			success: function (resp) {
 				if (resp == 1) {
-					alert_toast("Datos eliminados exitósamente", 'success')
+					alert_toast("Tarea eliminada exitósamente", 'success')
 					setTimeout(function () {
 						location.reload()
 					}, 1500)
