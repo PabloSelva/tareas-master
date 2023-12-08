@@ -152,7 +152,7 @@ if($_SESSION['login_type'] != 1)
           <div class="col-12 col-sm-6 col-md-4">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3><?php echo $conn->query("SELECT * FROM lista_miembros")->num_rows; ?></h3>
+                <h3><?php echo $conn->query("SELECT * FROM lista_tareas")->num_rows; ?></h3>
 
                 <p>Total de Tareas</p>
               </div>
