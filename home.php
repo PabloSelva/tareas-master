@@ -34,6 +34,36 @@
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
+    ////////////////////////////2////////////////////////////////////////
+    function drawPieChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Status', 'Cantidad'],
+        <?php
+        $conexion = mysqli_connect("localhost", "root", "", "empleado");
+        $SQL = "SELECT status AS estado, COUNT(*) as cantidad FROM lista_tareas GROUP BY estado";
+        $consulta = mysqli_query($conexion, $SQL);
+
+        while ($resultado = mysqli_fetch_assoc($consulta)) {
+          $status = '';
+          if ($resultado['estado'] == 0) {
+            $status = 'Pendiente';
+          } elseif ($resultado['estado'] == 1) {
+            $status = 'En proceso';
+          } elseif ($resultado['estado'] == 2) {
+            $status = 'Completado';
+          }
+          echo "['" . $status . "', " . $resultado['cantidad'] . "],";
+        }
+        ?>
+      ]);
+
+      var options = {
+        is3D: true
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
+      chart.draw(data, options);
+    }
     function drawBarChart() {
       var data = google.visualization.arrayToDataTable([
         ['Miembro', 'Pendiente', 'En Proceso', 'Completado'],
@@ -182,5 +212,11 @@ if($_SESSION['login_type'] != 1)
             </div>
           </div>
       </div>
-          
+      <h1>Gráfico: Estado de las tareas</h1>
+         <div id="piechart_3d2" style="margin: 20px  ; width: 500px; height: 200px;" ></div>
+      
+          <h1>Gráfico: Tareas asignadas por miembro</h1>
+  <div id="barchart_material" style="margin: 10px auto;
+  width: 1000px;
+  height: 500px;"></div>
 <?php endif; ?>
