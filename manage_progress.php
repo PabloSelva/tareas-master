@@ -14,14 +14,14 @@ if(isset($_GET['id'])){
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="form-group">
-					<label for="">Progress Description</label>
+					<label for="">Descripción</label>
 					<textarea name="progress" id="progress" cols="30" rows="10" class="summernote form-control" required=""><?php echo isset($progress) ? $progress : '' ?></textarea>
 				</div>
 				<div class="form-group clearfix">
 					<div class="icheck-primary d-inline">
                         <input type="checkbox" name="is_complete" value="1" <?php echo isset($is_complete) && $is_complete == 1 ? 'checked' : '' ?> id="is_complete">
                         <label for="is_complete">
-                        	Task Completed
+                        	Tarea Completada
                         </label>
                 	</div>
 				</div>
