@@ -107,7 +107,7 @@ if(isset($_GET['id'])){
 		    type: 'POST',
 			success:function(resp){
 				if(resp == 1){
-					alert_toast('Datos grabados satisfactoriamente',"Proceso Exitóso");
+					alert_toast('Nueva Tarea asignada',"Proceso Exitóso");
 
 					var datos = {
 						task: $('[name="task"]').val(),
