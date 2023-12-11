@@ -5,7 +5,7 @@
   date_default_timezone_set("America/Mexico_City");
   
   ob_start();
-  $title = isset($_GET['page']) ? ucwords(str_replace("_", ' ', $_GET['page'])) : "Inicio";
+  $title = "IntellySys";
   ?>
   <title><?php echo $title ?> | <?php echo $_SESSION['system']['name'] ?></title>
   <?php ob_end_flush() ?>
