@@ -25,10 +25,7 @@ if(isset($_GET['id'])){
 							$employees = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM lista_miembros order by concat(lastname,', ',firstname,' ',middlename) asc");
 							while($row=$employees->fetch_assoc()):
 							?>
-							<option value="<?php echo $row['id'] ?>" <?php echo isset($employee_id) && $employee_id == $row['id'] ? 'selected' : '' ?>>
-							<?php echo $row['name'] . ' - ' . $row['email']; ?>
-						</option>
-
+							<option value="<?php echo $row['id'] . ' - ' . $row['email']; ?>" <?php echo isset($employee_id) && $employee_id == $row['id'] ? 'selected' : '' ?> ><?php echo $row['name'] . ' - ' . $row['email']; ?></option>
 							<?php endwhile; ?>
 						</select>
 					</div>
@@ -105,6 +102,8 @@ if(isset($_GET['id'])){
     // Datos para enviar al servidor
     var formData = new FormData($(this)[0]);
 
+	var $employee_id = $('#employee_id option:selected').text().split(' - ')[1];
+
     $.ajax({
         url: 'ajax.php?action=save_task',
         data: formData,
@@ -115,12 +114,17 @@ if(isset($_GET['id'])){
         success: function(resp){
             if(resp == 1){
                 alert_toast('Nueva Tarea asignada', "Proceso Exitóso");
+				var selectedValue = $('#employee_id').val();
+				var parts = selectedValue.split(' - ');
+				var employee_id = parts[0];
+				var employee_email = parts[1];
 
-                var datos = {
-                    task: $('[name="task"]').val(),
-                    description: $('[name="description"]').val(),
-					employee_id: $('[name="employee_id"]').val()
-                };
+				var datos = {
+					task: $('[name="task"]').val(),
+					description: $('[name="description"]').val(),
+					employee_id: employee_id,
+					employee_email: employee_email
+				};
 
                 $.ajax({
                     type: 'POST',

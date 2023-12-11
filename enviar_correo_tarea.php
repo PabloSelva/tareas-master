@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   //$password = $_POST['password'];
   $tarea = $_POST['task'];
   $desc = $_POST['description'];
-  $employee_id = $_POST['employee_id'];
+  $employee_email = $_POST['employee_email'];
+  $mail = new PHPMailer(true);
  
     //Server settings
     
@@ -38,30 +39,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recipients
     $mail->setFrom('intellysys.encode@gmail.com'); // Sender Email and name
     //$mail->addAddress($_POST["email"]);     //Add a recipient email
-    $mail->addAddress($_POST['employee_id' $_GET'email']);    
-     //Add a recipient email
+    $mail->addAddress($employee_email);     //Add a recipient email
+    $mail->CharSet = "UTF-8";
     //$mail->Subject = 'Contacto desde formulario';  
     //$mail->addReplyTo($_POST["email"], $_POST["name"]); // reply to sender email
  
     //Content
     $mail->isHTML(true);               //Set email format to HTML
-    $mail->Subject = 'Registro Intellysys';  
+    $mail->Subject = 'Nueva Asignación';  
     //$mail->Body = "!Hola";
     //$mail->Body .= $_POST['firstname'];
     //$mail->Body .= "!Hola   \r ".$firstname."   Bienvenido a nuestro servicio Intellysys Encode .\r\n  Has sido registrado exitosamente! .";
-    $mail->Body .="
-    <html>
+    $mail->Body .= "
+    <html lang=\"es\">
     <head>
-        <title>Bienvenido a nuestro servicio</title>
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <title>Nueva Asignación</title>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                color: #333;
+            }
+
+            p {
+                color: #555;
+            }
+
+            .logo {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .cta-button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #3498db;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 3px;
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
-        <p>¡Hola !</p>
-        <p>Tienes una nueva asignación: $tarea</p>
-        <p>Descripción: $desc</p>
-        <p>El equipo de Intellysys Encode.</p>
-        
-       
+        <div class=\"container\">
+            
+            <h1>¡Se te ha asignado una nueva tarea!</h1>
 
+            <ul>
+                <p>Tarea:$tarea </p>
+                
+                <p>Descripción:$desc </p>
+            </ul>
+
+        </div>
     </body>
     </html>
 ";

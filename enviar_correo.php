@@ -42,13 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Content
     $mail->isHTML(true);               //Set email format to HTML
     $mail->Subject = 'Registro Intellysys';  
+    $mail->CharSet = "UTF-8";
     //$mail->Body = "!Hola";
     //$mail->Body .= $_POST['firstname'];
     //$mail->Body .= "!Hola   \r ".$firstname."   Bienvenido a nuestro servicio Intellysys Encode .\r\n  Has sido registrado exitosamente! .";
     $mail->Body .= "
     <html lang=\"es\">
     <head>
-        <meta charset=\"UTF-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
         <title>¡Bienvenido!</title>
 
