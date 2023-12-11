@@ -410,6 +410,19 @@ Class Action {
 	}
 	function save_task(){
 		extract($_POST);
+	
+		// Manejo del archivo cargado
+		if(isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
+			$file_name = $_FILES['file']['name'];
+			$file_tmp = $_FILES['file']['tmp_name'];
+	
+			// Mueve el archivo a tu directorio de destino
+			move_uploaded_file($file_tmp, 'assets/uploads/' . $file_name);
+	
+			// Almacena el nombre del archivo en la variable para ser guardado en la base de datos
+			$archivo = 'assets/uploads/' . $file_name;
+		}
+	
 		$data = "";
 		foreach($_POST as $k => $v){
 			if(!in_array($k, array('id')) && !is_numeric($k)){
@@ -417,20 +430,26 @@ Class Action {
 					$v = htmlentities(str_replace("'","&#x2019;",$v));
 				if(empty($data)){
 					$data .= " $k='$v' ";
-				}else{
+				} else {
 					$data .= ", $k='$v' ";
 				}
 			}
 		}
+	
+		// Agrega la columna 'archivo' a la lista de columnas en la base de datos
+		$data .= ", archivo='$archivo'";
+	
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO lista_tareas set $data");
-		}else{
+		} else {
 			$save = $this->db->query("UPDATE lista_tareas set $data where id = $id");
 		}
+	
 		if($save){
 			return 1;
 		}
 	}
+	
 	function delete_task(){
 		extract($_POST);
 		$delete = $this->db->query("DELETE FROM lista_tareas where id = $id");
@@ -528,6 +547,8 @@ Class Action {
 		}
 		return json_encode($data);
 	}
+	
+
 	function get_report(){
 		extract($_POST);
 		$data = array();

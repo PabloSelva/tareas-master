@@ -36,7 +36,7 @@ if(isset($_GET['id'])){
 			        	}elseif($status == 2){
 					  		echo "<span class='badge badge-success'>Completo</span>";
 			        	}
-			        	if(strtotime($due_date) < strtotime(date('Y-m-d'))){
+			        	if(strtotime($due_date) < strtotime(date('m-d-Ys'))){
 					  		echo "<span class='badge badge-danger mx-1'>Vencido</span>";
 			        	}
 			        	?>
@@ -52,6 +52,24 @@ if(isset($_GET['id'])){
 			</dl>
 			</div>
 		</div>
+		<div class="row">
+    <div class="col-md-12">
+        <dl>
+            <dt><b class="border-bottom border-primary">Archivos adjuntos</b></dt>
+            <dd>
+                <?php
+                // Verifica si hay un archivo adjunto
+                if (!empty($archivo)) {
+                    // Muestra un enlace para descargar el archivo
+                    echo '<a href="' . $archivo . '" download>Descargar Archivo</a>';
+                } else {
+                    // Muestra un mensaje si no hay archivo adjunto
+                    echo 'No hay archivos adjuntos.';
+                }
+                ?>
+            </dd>
+        </dl>
+    </div>
 	</div>
 </div>
 <style>
