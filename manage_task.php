@@ -25,7 +25,10 @@ if(isset($_GET['id'])){
 							$employees = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM lista_miembros order by concat(lastname,', ',firstname,' ',middlename) asc");
 							while($row=$employees->fetch_assoc()):
 							?>
-							<option value="<?php echo $row['id'] ?>" <?php echo isset($employee_id) && $employee_id == $row['id'] ? 'selected' : '' ?>><?php echo $row['name'] ?></option>
+							<option value="<?php echo $row['id'] ?>" <?php echo isset($employee_id) && $employee_id == $row['id'] ? 'selected' : '' ?>>
+							<?php echo $row['name'] . ' - ' . $row['email']; ?>
+						</option>
+
 							<?php endwhile; ?>
 						</select>
 					</div>
@@ -59,6 +62,9 @@ if(isset($_GET['id'])){
             		<label for="file">Adjuntar Archivo</label>
             		<input type="file" class="form-control-file" name="file" id="file">
         			</div>
+
+
+					
 				</div>
 			</div>
 		</div>
@@ -92,38 +98,28 @@ if(isset($_GET['id'])){
     })
      })
     
-    $('#manage-task').submit(function(e){
-    	e.preventDefault()
-    	start_load()
-		 // Datos para enviar al servidor
-		 var formData = new FormData($(this)[0]);
-    	formData.append('task', $('[name="task"]').val());
-    	formData.append('description', $('[name="description"]').val());
-    	//formData.append('firstname', $('[name="firstname"]').val());
-    	//formData.append('password', $('[name="password"]').val());
-		var fileInput = $('#file')[0];
-        if (fileInput.files.length > 0) {
-            formData.append('file', fileInput.files[0]);
-        }
+	 $('#manage-task').submit(function(e){
+    e.preventDefault();
+    start_load();
 
-    	$.ajax({
-    		url:'ajax.php?action=save_task',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Nueva Tarea asignada',"Proceso Exitóso");
+    // Datos para enviar al servidor
+    var formData = new FormData($(this)[0]);
 
-					var datos = {
-						task: $('[name="task"]').val(),
-						description: $('[name="description"]').val()
-					//firstname: $('[name="firstname"]').val(),
-					// password: $('[name="password"]').val()
-					
+    $.ajax({
+        url: 'ajax.php?action=save_task',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        success: function(resp){
+            if(resp == 1){
+                alert_toast('Nueva Tarea asignada', "Proceso Exitóso");
+
+                var datos = {
+                    task: $('[name="task"]').val(),
+                    description: $('[name="description"]').val(),
+					employee_id: $('[name="employee_id"]').val()
                 };
 
                 $.ajax({
@@ -138,11 +134,12 @@ if(isset($_GET['id'])){
                     }
                 });
 
-					setTimeout(function(){
-						location.reload()
-					},1500)
-				}
-			}
-    	})
-    })
+                setTimeout(function(){
+                    location.reload();
+                }, 1500);
+            }
+        }
+    });
+});
+
 </script>

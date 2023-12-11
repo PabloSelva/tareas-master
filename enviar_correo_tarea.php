@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   //$password = $_POST['password'];
   $tarea = $_POST['task'];
   $desc = $_POST['description'];
-  $mail = new PHPMailer(true);
+  $employee_id = $_POST['employee_id'];
  
     //Server settings
     
@@ -38,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recipients
     $mail->setFrom('intellysys.encode@gmail.com'); // Sender Email and name
     //$mail->addAddress($_POST["email"]);     //Add a recipient email
-    $mail->addAddress('pablosc809@gmail.com');     //Add a recipient email
+    $mail->addAddress($_POST['employee_id' $_GET'email']);    
+     //Add a recipient email
     //$mail->Subject = 'Contacto desde formulario';  
     //$mail->addReplyTo($_POST["email"], $_POST["name"]); // reply to sender email
  
